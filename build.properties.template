@@ -1,2 +1,6 @@
+# Location of GDA installation. Should contain the 'plugins' directory.
+# Only needed if you want to compile the plugin or run the HC software using Ant.
 gda.root=
+
+# Location of HC software installation.
 hc.dir=
