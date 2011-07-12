@@ -1,0 +1,44 @@
+<project name="hc1-gda">
+
+	<property file="build.properties" />
+	
+	<target name="compile">
+		<delete dir="bin" />
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin">
+			<classpath>
+				<pathelement location="${hc.dir}/HC.jar" />
+				<pathelement location="${gda.root}/plugins/uk.ac.gda.video/bin" />
+				<pathelement location="${gda.root}/plugins/uk.ac.gda.video.mjpeg/bin" />
+				<pathelement location="${gda.root}/plugins/uk.ac.gda.core/classes/main" />
+			</classpath>
+		</javac>
+		<copy todir="bin">
+			<fileset dir="src" includes="*.properties" />
+		</copy>
+	</target>
+	
+	<target name="deploy">
+		<copy todir="${hc.dir}/plugins" overwrite="true" verbose="true">
+			<fileset dir="bin">
+				<include name="*.class" />
+				<include name="*.properties" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="run">
+		<java dir="${hc.dir}" fork="true" classname="org.embl.hc.hcApp">
+			<classpath>
+				<pathelement location="${hc.dir}/HC.jar" />
+				<pathelement location="${gda.root}/plugins/uk.ac.gda.video/bin" />
+				<pathelement location="${gda.root}/plugins/uk.ac.gda.video.mjpeg/bin" />
+				<pathelement location="${gda.root}/plugins/uk.ac.gda.core/classes/main" />
+				<fileset dir="${gda.root}/plugins/uk.ac.gda.libs">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</java>
+	</target>
+
+</project>
